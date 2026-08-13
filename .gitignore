@@ -1,0 +1,10 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment secrets
+.env
+
+# Qdrant local storage (لو مش عايز تتبعه)
+qdrant_storage/

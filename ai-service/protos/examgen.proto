@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+service ExamAIService{
+    rpc IndexLecture (IndexLectureRequest) returns (IndexLectureResponse);
+    rpc GenerateExam (GenerateQuestionsRequest) returns (GenerateQuestionsResponse);
+   // rpc GradeAnswer (GradeAnswerRequest) returns (GradeAnswerResponse);
+    // rpc GradeImageAnswer (GradeImageAnswerRequest) returns (GradeAnswerResponse);
+    // rpc ExplainConcept (ExplainConceptRequest) returns (ExplainConceptResponse);
+}
+
+    message IndexLectureRequest{
+        string lecture_id =1;
+        string course_id =2;
+        string user_id =3;
+        string content=4;
+    }
+
+    message IndexLectureResponse{
+        bool success =1;
+        string error_message = 2;
+        int32 chunks_indexed=3 ;
+    }
+
+    message LectureContent {
+        string lecture_id = 1;
+        string content = 2;
+        int32 questions_count = 3;
+    }
+
+    message DifficultyBreakdown {
+       int32 easy = 1;
+       int32 medium = 2;
+       int32 hard = 3;
+    }
+
+    message TypeBreakdown {
+      int32 mcq = 1;
+      int32 essay = 2;
+      int32 true_false = 3;
+    }
+
+    message GenerateQuestionsRequest {
+      repeated LectureContent lectures = 1;
+      int32 total_questions = 2;
+      DifficultyBreakdown difficulty_breakdown = 3;
+      TypeBreakdown type_breakdown = 4;
+   }
+   message GenerateQuestionsResponse {
+       bool success = 1;
+      string error_message = 2;
+      repeated GeneratedQuestion questions = 3;
+    }
+    message GeneratedQuestion {
+       string text = 1;
+       string type = 2;              
+       string difficulty = 3;        
+       string topic = 4;
+       string explanation = 5;
+       repeated GeneratedOption options = 6; 
+       string model_answer = 7;               
+       repeated string grading_criteria = 8;   
+    }
+
+    message GeneratedOption {
+      string text = 1;
+      bool is_correct = 2;
+    }
