@@ -33,17 +33,5 @@ def save_chunk (lecture_id :str,course_id :str,user_id:str,chunk:list[str],embed
             vector=embeddings[i]
         )
         points.append(point)
-    client.upsert(collection_name=COLLECTION_NAME,points=points)    
-
-
-
-
-
-
-
-
-
-
-
-
-
+    client.upsert(collection_name=COLLECTION_NAME,points=points)
+    return len(points)    
