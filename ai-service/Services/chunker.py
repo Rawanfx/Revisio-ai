@@ -1,6 +1,5 @@
 from transformers import AutoTokenizer
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 model_name = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 

@@ -7,11 +7,11 @@ COLLECTION_NAME = "lecture_chunks"
 VECTOR_SIZE=384
 
 def ensure_collection ():
-    collection = client.get_collection().collections
+    collection = client.get_collections().collections
     if not any (c.name == COLLECTION_NAME for c in collection):
         client.create_collection(
             collection_name=COLLECTION_NAME,
-            vectors_config=VectorParams(VECTOR_SIZE,Distance=Distance.COSINE)
+            vectors_config=VectorParams(size=VECTOR_SIZE,distance=Distance.COSINE)
         )
         client.create_payload_index(collection_name=COLLECTION_NAME,field_name="lecture_id",field_schema="keyword")
         client.create_payload_index(collection_name=COLLECTION_NAME,field_name="user_id",field_schema="keyword")

@@ -3,15 +3,15 @@ from concurrent import futures
 import protos.examgen_pb2
 import protos.examgen_pb2_grpc
 from Services.embedder import get_embeddings
-from Services.indexing import chunk_text
-from db.vector_store import ensure_collection, save_chunks
+from Services.chunker import create_chunk
+from db.vector_store import ensure_collection, save_chunk
 
 
 class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
 
     def IndexLecture(self, request, context):
         try:
-            chunks = chunk_text(request.content)
+            chunks = create_chunk(request.content)
 
             if not chunks:
                 return protos.examgen_pb2.IndexLectureResponse(
@@ -22,11 +22,11 @@ class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
 
             embeddings = get_embeddings(chunks)
 
-            count = save_chunks(
+            count = save_chunk(
                 lecture_id=request.lecture_id,
                 course_id=request.course_id,
                 user_id=request.user_id,
-                chunks=chunks,
+                chunk=chunks,
                 embeddings=embeddings
             )
 
