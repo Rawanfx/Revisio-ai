@@ -5,9 +5,9 @@ from generation.ai_client import generate_exam_questions
 from generation.prombtBuilder import build_exam_prompt
 
 
-class AIExamServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
 
-    def GenerateExam(self, request, context):
+
+def GenerateExam( request):
         try:
             all_groups = []
             for i in request.lectures:

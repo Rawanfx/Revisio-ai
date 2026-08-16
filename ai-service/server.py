@@ -5,15 +5,15 @@ from concurrent import futures
 import protos.examgen_pb2
 import protos.examgen_pb2_grpc
 from db.vector_store import ensure_collection, save_chunk
-from grpc_server.generate_exam import AIExamServicer
-from grpc_server.index_lecture import IndexLecture
+from grpc_server.generate_exam import GenerateExam
+from grpc_server.index_lecture import handle_index_lecture
 class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
 
     def IndexLecture(self, request, context):
-       return IndexLecture.IndexLecture(request)
+       return handle_index_lecture(request)
 
     def GenerateExam(self, request, context):
-       return AIExamServicer.GenerateExam(request,context)
+       return GenerateExam(request)
 
     def GradeAnswer(self, request, context):
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
