@@ -5,6 +5,7 @@ import protos.examgen_pb2_grpc
 from Services.embedder import get_embeddings
 from Services.chunker import create_chunk
 from db.vector_store import ensure_collection, save_chunk
+from dotenv import load_dotenv
 
 
 class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
@@ -61,6 +62,7 @@ class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
 
 
 def serve():
+    load_dotenv()
     ensure_collection()  
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     protos.examgen_pb2_grpc.add_ExamAIServiceServicer_to_server(ExamAIServicer(), server)
