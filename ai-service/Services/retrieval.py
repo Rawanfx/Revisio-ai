@@ -25,6 +25,29 @@ def retrivie_lecture_grouped(lecture_id : str , question_count : int)->list[dict
         for group, q_count in zip(groups, question_per_group)
     ]
 
+def distribute_breakdown(total_breakdown: dict, group_question_counts: list[int]) -> list[dict]:
+
+    total_questions = sum(total_breakdown.values())
+    result = []
+    remaining = dict(total_breakdown)
+
+    for i, group_count in enumerate(group_question_counts):
+        is_last_group = (i == len(group_question_counts) - 1)
+        group_breakdown = {}
+
+        for key, total_value in total_breakdown.items():
+            if is_last_group:
+                group_breakdown[key] = remaining[key]
+            else:
+                share = round(total_value * (group_count / total_questions))
+                share = min(share, remaining[key])
+                group_breakdown[key] = share
+                remaining[key] -= share
+
+        result.append(group_breakdown)
+
+    return result
+
 
 def distribute_question (total_question :int,num_groups:int)->list[int]:
     base = total_question//num_groups
