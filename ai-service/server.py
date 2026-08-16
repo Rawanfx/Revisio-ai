@@ -1,52 +1,19 @@
+from dotenv import load_dotenv
+load_dotenv()
 import grpc
 from concurrent import futures
 import protos.examgen_pb2
 import protos.examgen_pb2_grpc
-from Services.embedder import get_embeddings
-from Services.chunker import create_chunk
 from db.vector_store import ensure_collection, save_chunk
-from dotenv import load_dotenv
-
-
+from grpc_server.generate_exam import AIExamServicer
+from grpc_server.index_lecture import IndexLecture
 class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
 
     def IndexLecture(self, request, context):
-        try:
-            chunks = create_chunk(request.content)
-
-            if not chunks:
-                return protos.examgen_pb2.IndexLectureResponse(
-                    success=False,
-                    error_message="Lecture content is empty",
-                    chunks_indexed=0
-                )
-
-            embeddings = get_embeddings(chunks)
-
-            count = save_chunk(
-                lecture_id=request.lecture_id,
-                course_id=request.course_id,
-                user_id=request.user_id,
-                chunk=chunks,
-                embeddings=embeddings
-            )
-
-            return protos.examgen_pb2.IndexLectureResponse(
-                success=True,
-                error_message="",
-                chunks_indexed=count
-            )
-
-        except Exception as e:
-            return protos.examgen_pb2.IndexLectureResponse(
-                success=False,
-                error_message=str(e),
-                chunks_indexed=0
-            )
+       return IndexLecture.IndexLecture(request)
 
     def GenerateExam(self, request, context):
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        return protos.examgen_pb2.GenerateQuestionsResponse()
+       return AIExamServicer.GenerateExam(request,context)
 
     def GradeAnswer(self, request, context):
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -62,7 +29,7 @@ class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
 
 
 def serve():
-    load_dotenv()
+    
     ensure_collection()  
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     protos.examgen_pb2_grpc.add_ExamAIServiceServicer_to_server(ExamAIServicer(), server)
