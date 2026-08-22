@@ -1,4 +1,5 @@
 from db.vector_store import client
+from embedder import get_embeddings
 from qdrant_client.models import Filter, FieldCondition, MatchValue
 
 COLLECTION_NAME ="lecture_chunks" 
@@ -20,7 +21,8 @@ def retrivie_lecture_grouped(lecture_id : str , question_count : int)->list[dict
     return [
         {
             "content": "\n\n".join(c.payload["content"] for c in group),
-            "questions_count": q_count
+            "questions_count": q_count,
+            "lecture_id":lecture_id
         }
         for group, q_count in zip(groups, question_per_group)
     ]
@@ -69,3 +71,20 @@ def split_into_groups (chunks :list,group_size :int=200)->list[list]:
         groups.append(group)
         i+=group_size
     return groups    
+
+
+def retrieve_context_for_question (lecture_id :str,question_text:str,top_k:int =5)->str:
+    query_vector = get_embeddings([question_text])[0]
+    result = client.search (
+      collection_name=  COLLECTION_NAME,
+      query_vector=query_vector,
+      query_filter=Filter(
+          must =[FieldCondition(key = "lecture_id",match=MatchValue(value=lecture_id))]
+      )
+      limit = top_k
+    )
+    if not result:
+        return ""
+    return "\n\n".join(hit.payload["content"] for hit in result) 
+    
+

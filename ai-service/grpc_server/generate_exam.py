@@ -12,6 +12,8 @@ def GenerateExam( request):
             all_groups = []
             for i in request.lectures:
                 group = retrivie_lecture_grouped(i.lecture_id, i.questions_count)
+                for g in group:
+                    g["lecture_id"]=i.lecture_id
                 all_groups.extend(group)
 
             if not all_groups:
@@ -47,6 +49,8 @@ def GenerateExam( request):
                     q_type
                 )
                 question = generate_exam_questions(prompt)
+                for q in question :
+                    q["lecture_id"]=group["lecture_id"]
                 questions.extend(question)
 
             response = protos.examgen_pb2.GenerateQuestionsResponse(success=True)

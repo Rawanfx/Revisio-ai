@@ -44,6 +44,11 @@ class ExamAIServiceStub:
                 request_serializer=protos_dot_examgen__pb2.GenerateQuestionsRequest.SerializeToString,
                 response_deserializer=protos_dot_examgen__pb2.GenerateQuestionsResponse.FromString,
                 _registered_method=True)
+        self.GradeAnswer = channel.unary_unary(
+                '/ExamAIService/GradeAnswer',
+                request_serializer=protos_dot_examgen__pb2.GradeAnswerRequest.SerializeToString,
+                response_deserializer=protos_dot_examgen__pb2.GradeAnswerResponse.FromString,
+                _registered_method=True)
 
 
 class ExamAIServiceServicer:
@@ -56,8 +61,13 @@ class ExamAIServiceServicer:
         raise NotImplementedError('Method not implemented!')
 
     def GenerateExam(self, request, context):
-        """rpc GradeAnswer (GradeAnswerRequest) returns (GradeAnswerResponse);
-        rpc GradeImageAnswer (GradeImageAnswerRequest) returns (GradeAnswerResponse);
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GradeAnswer(self, request, context):
+        """rpc GradeImageAnswer (GradeImageAnswerRequest) returns (GradeAnswerResponse);
         rpc ExplainConcept (ExplainConceptRequest) returns (ExplainConceptResponse);
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -76,6 +86,11 @@ def add_ExamAIServiceServicer_to_server(servicer, server):
                     servicer.GenerateExam,
                     request_deserializer=protos_dot_examgen__pb2.GenerateQuestionsRequest.FromString,
                     response_serializer=protos_dot_examgen__pb2.GenerateQuestionsResponse.SerializeToString,
+            ),
+            'GradeAnswer': grpc.unary_unary_rpc_method_handler(
+                    servicer.GradeAnswer,
+                    request_deserializer=protos_dot_examgen__pb2.GradeAnswerRequest.FromString,
+                    response_serializer=protos_dot_examgen__pb2.GradeAnswerResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -132,6 +147,33 @@ class ExamAIService:
             '/ExamAIService/GenerateExam',
             protos_dot_examgen__pb2.GenerateQuestionsRequest.SerializeToString,
             protos_dot_examgen__pb2.GenerateQuestionsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GradeAnswer(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ExamAIService/GradeAnswer',
+            protos_dot_examgen__pb2.GradeAnswerRequest.SerializeToString,
+            protos_dot_examgen__pb2.GradeAnswerResponse.FromString,
             options,
             channel_credentials,
             insecure,

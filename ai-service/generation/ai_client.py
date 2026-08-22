@@ -34,9 +34,9 @@ EXAM_TOOL_SCHEMA = {
                                     "required": ["text", "is_correct"]
                                 }
                             },
-                            "model_answer": {"type": "string"},
+                            "model_answer": {"type": ["string","null"]},
                             "grading_criteria": {
-                                "type": "array",
+                                "type": ["array","null"],
                                 "items": {"type": "string"}
                             }
                         },
