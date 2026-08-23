@@ -7,6 +7,7 @@ import protos.examgen_pb2_grpc
 from db.vector_store import ensure_collection, save_chunk
 from grpc_server.generate_exam import GenerateExam
 from grpc_server.index_lecture import handle_index_lecture
+from grpc_server.grade_answer_handle import handle_grade_answer
 class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
 
     def IndexLecture(self, request, context):
@@ -16,8 +17,7 @@ class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
        return GenerateExam(request)
 
     def GradeAnswer(self, request, context):
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        return protos.examgen_pb2.GradeAnswerResponse()
+        return handle_grade_answer(request)
 
     def GradeImageAnswer(self, request, context):
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)

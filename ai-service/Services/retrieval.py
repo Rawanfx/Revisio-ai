@@ -75,14 +75,13 @@ def split_into_groups (chunks :list,group_size :int=200)->list[list]:
 
 def retrieve_context_for_question (lecture_id :str,question_text:str,top_k:int =5)->str:
     query_vector = get_embeddings([question_text])[0]
-    result = client.search (
+    result = client.search(
       collection_name=  COLLECTION_NAME,
       query_vector=query_vector,
       query_filter=Filter(
           must =[FieldCondition(key = "lecture_id",match=MatchValue(value=lecture_id))]
-      )
-      limit = top_k
-    )
+      ),
+      limit = top_k)
     if not result:
         return ""
     return "\n\n".join(hit.payload["content"] for hit in result) 

@@ -70,6 +70,8 @@ service ExamAIService{
         string student_answer=2;
         string question_text=3;
         int32 max_score=4;
+        string model_answer=5;
+        string grading_criteria=6;
     }
     message GradeAnswerResponse {
         bool success=1;
