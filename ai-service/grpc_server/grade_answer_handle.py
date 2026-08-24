@@ -24,9 +24,9 @@ def handle_grade_answer (request):
             success=True,
             score =result["score"],
             feedback=result["feedback"],
-            confidence=result.get("confidence")
+            confidence=result.get("confidence","meduim")
         )
-        response.missing_point.extends(result.get("missed_points",[]))
+        response.missing_point.extend(result.get("missed_points",[]))
         return response
     except Exception as e:
         response = protos.examgen_pb2.GradeAnswerResponse(

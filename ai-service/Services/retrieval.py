@@ -1,5 +1,5 @@
 from db.vector_store import client
-from embedder import get_embeddings
+from Services.embedder import get_embeddings
 from qdrant_client.models import Filter, FieldCondition, MatchValue
 
 COLLECTION_NAME ="lecture_chunks" 
@@ -75,15 +75,15 @@ def split_into_groups (chunks :list,group_size :int=200)->list[list]:
 
 def retrieve_context_for_question (lecture_id :str,question_text:str,top_k:int =5)->str:
     query_vector = get_embeddings([question_text])[0]
-    result = client.search(
+    result = client.query_points(
       collection_name=  COLLECTION_NAME,
-      query_vector=query_vector,
+      query=query_vector,
       query_filter=Filter(
           must =[FieldCondition(key = "lecture_id",match=MatchValue(value=lecture_id))]
       ),
       limit = top_k)
-    if not result:
+    if not result.points:
         return ""
-    return "\n\n".join(hit.payload["content"] for hit in result) 
+    return "\n\n".join(hit.payload["content"] for hit in result.points) 
     
 
