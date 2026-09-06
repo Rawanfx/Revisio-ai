@@ -6,8 +6,31 @@ service ExamAIService{
    rpc GradeAnswer (GradeAnswerRequest) returns (GradeAnswerResponse);
     // rpc GradeImageAnswer (GradeImageAnswerRequest) returns (GradeAnswerResponse);
     // rpc ExplainConcept (ExplainConceptRequest) returns (ExplainConceptResponse);
+    rpc pre_summary (GenerateSummaryRequest) returns (GenerateSummaryResponse)
+}
+    
+    message GenerateSummaryRequest{
+        string course_id=1;
+        repeated WeakTopic weak_topics=2;
+    }
+    message WeakTopic{
+        string topic=1;
+        string lecture_id =2;
+        int32 missed_count =3;
+        int32 total_attempted=4;
+    }
+    
+message TopicReview {
+    string topic = 1;
+    string lecture_id =2;
+    string focus_points = 3;   
 }
 
+message GenerateSummaryResponse {
+    bool success = 1;
+    string error_message = 2;
+    repeated TopicReview reviews = 3;
+}
     message IndexLectureRequest{
         string lecture_id =1;
         string course_id =2;

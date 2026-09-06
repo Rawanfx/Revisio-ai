@@ -24,7 +24,7 @@ EXAM_TOOL_SCHEMA = {
                             "topic": {"type": "string"},
                             "explanation": {"type": "string"},
                             "options": {
-                                "type": "array",
+                                "type": ["array","null"],
                                 "items": {
                                     "type": "object",
                                     "properties": {

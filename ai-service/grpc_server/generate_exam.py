@@ -63,6 +63,7 @@ def GenerateExam( request):
                 gq.explanation = q.get("explanation", "")
                 gq.model_answer = q.get("model_answer", "") or ""
                 gq.grading_criteria.extend(q.get("grading_criteria", []) or [])
+                gq.lecture_id=q.get("lecture_id","")
                 for opt in q.get("options", []) or []:
                     o = gq.options.add()
                     o.text = opt["text"]
