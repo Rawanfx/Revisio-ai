@@ -6,7 +6,7 @@ service ExamAIService{
    rpc GradeAnswer (GradeAnswerRequest) returns (GradeAnswerResponse);
     // rpc GradeImageAnswer (GradeImageAnswerRequest) returns (GradeAnswerResponse);
     // rpc ExplainConcept (ExplainConceptRequest) returns (ExplainConceptResponse);
-    rpc pre_summary (GenerateSummaryRequest) returns (GenerateSummaryResponse)
+    rpc pre_summary (GenerateSummaryRequest) returns (GenerateSummaryResponse);
 }
     
     message GenerateSummaryRequest{
