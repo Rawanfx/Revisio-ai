@@ -8,6 +8,8 @@ from db.vector_store import ensure_collection, save_chunk
 from grpc_server.generate_exam import GenerateExam
 from grpc_server.index_lecture import handle_index_lecture
 from grpc_server.grade_answer_handle import handle_grade_answer
+from grpc_server.pre_exam_summary import handle_pre_exam_summary
+from grpc_server.generate_explain_text import handle_explain_text
 class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
 
     def IndexLecture(self, request, context):
@@ -24,8 +26,10 @@ class ExamAIServicer(protos.examgen_pb2_grpc.ExamAIServiceServicer):
         return protos.examgen_pb2.GradeAnswerResponse()
 
     def ExplainConcept(self, request, context):
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        return protos.examgen_pb2.ExplainConceptResponse()
+       return handle_explain_text(request)
+    
+    def ExamSummary(self,request):
+        return handle_pre_exam_summary(request)
 
 
 def serve():
