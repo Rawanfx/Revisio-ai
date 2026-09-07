@@ -24,43 +24,47 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14protos/examgen.proto\"L\n\x16GenerateSummaryRequest\x12\x11\n\tcourse_id\x18\x01 \x01(\t\x12\x1f\n\x0bweak_topics\x18\x02 \x03(\x0b\x32\n.WeakTopic\"]\n\tWeakTopic\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x12\n\nlecture_id\x18\x02 \x01(\t\x12\x14\n\x0cmissed_count\x18\x03 \x01(\x05\x12\x17\n\x0ftotal_attempted\x18\x04 \x01(\x05\"F\n\x0bTopicReview\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x12\n\nlecture_id\x18\x02 \x01(\t\x12\x14\n\x0c\x66ocus_points\x18\x03 \x01(\t\"`\n\x17GenerateSummaryResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\x12\x1d\n\x07reviews\x18\x03 \x03(\x0b\x32\x0c.TopicReview\"^\n\x13IndexLectureRequest\x12\x12\n\nlecture_id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\x12\x0f\n\x07user_id\x18\x03 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\t\"V\n\x14IndexLectureResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\x12\x16\n\x0e\x63hunks_indexed\x18\x03 \x01(\x05\"=\n\x0eLectureContent\x12\x12\n\nlecture_id\x18\x01 \x01(\t\x12\x17\n\x0fquestions_count\x18\x03 \x01(\x05\"A\n\x13\x44ifficultyBreakdown\x12\x0c\n\x04\x65\x61sy\x18\x01 \x01(\x05\x12\x0e\n\x06medium\x18\x02 \x01(\x05\x12\x0c\n\x04hard\x18\x03 \x01(\x05\"?\n\rTypeBreakdown\x12\x0b\n\x03mcq\x18\x01 \x01(\x05\x12\r\n\x05\x65ssay\x18\x02 \x01(\x05\x12\x12\n\ntrue_false\x18\x03 \x01(\x05\"\xb2\x01\n\x18GenerateQuestionsRequest\x12!\n\x08lectures\x18\x01 \x03(\x0b\x32\x0f.LectureContent\x12\x17\n\x0ftotal_questions\x18\x02 \x01(\x05\x12\x32\n\x14\x64ifficulty_breakdown\x18\x03 \x01(\x0b\x32\x14.DifficultyBreakdown\x12&\n\x0etype_breakdown\x18\x04 \x01(\x0b\x32\x0e.TypeBreakdown\"j\n\x19GenerateQuestionsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\x12%\n\tquestions\x18\x03 \x03(\x0b\x32\x12.GeneratedQuestion\"\xce\x01\n\x11GeneratedQuestion\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x12\n\ndifficulty\x18\x03 \x01(\t\x12\r\n\x05topic\x18\x04 \x01(\t\x12\x13\n\x0b\x65xplanation\x18\x05 \x01(\t\x12!\n\x07options\x18\x06 \x03(\x0b\x32\x10.GeneratedOption\x12\x14\n\x0cmodel_answer\x18\x07 \x01(\t\x12\x18\n\x10grading_criteria\x18\x08 \x03(\t\x12\x12\n\nlecture_id\x18\t \x01(\t\"3\n\x0fGeneratedOption\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x12\n\nis_correct\x18\x02 \x01(\x08\"\x9a\x01\n\x12GradeAnswerRequest\x12\x12\n\nlecture_id\x18\x01 \x01(\t\x12\x16\n\x0estudent_answer\x18\x02 \x01(\t\x12\x15\n\rquestion_text\x18\x03 \x01(\t\x12\x11\n\tmax_score\x18\x04 \x01(\x05\x12\x14\n\x0cmodel_answer\x18\x05 \x01(\t\x12\x18\n\x10grading_criteria\x18\x06 \x01(\t\"\x89\x01\n\x13GradeAnswerResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x01\x12\x10\n\x08\x66\x65\x65\x64\x62\x61\x63k\x18\x04 \x01(\t\x12\x15\n\rmissing_point\x18\x05 \x03(\t\x12\x12\n\nconfidence\x18\x06 \x01(\t2\x8f\x02\n\rExamAIService\x12;\n\x0cIndexLecture\x12\x14.IndexLectureRequest\x1a\x15.IndexLectureResponse\x12\x45\n\x0cGenerateExam\x12\x19.GenerateQuestionsRequest\x1a\x1a.GenerateQuestionsResponse\x12\x38\n\x0bGradeAnswer\x12\x13.GradeAnswerRequest\x1a\x14.GradeAnswerResponse\x12@\n\x0bpre_summary\x12\x17.GenerateSummaryRequest\x1a\x18.GenerateSummaryResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14protos/examgen.proto\"Y\n\x15\x45xplainConceptRequest\x12\x12\n\nlecture_id\x18\x01 \x01(\t\x12\x15\n\rselected_text\x18\x02 \x01(\t\x12\x15\n\rquestion_text\x18\x03 \x01(\t\"k\n\x16\x45xplainConceptResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\x12\x13\n\x0b\x65xplanation\x18\x03 \x01(\t\x12\x14\n\x0creal_example\x18\x04 \x01(\t\"L\n\x16GenerateSummaryRequest\x12\x11\n\tcourse_id\x18\x01 \x01(\t\x12\x1f\n\x0bweak_topics\x18\x02 \x03(\x0b\x32\n.WeakTopic\"]\n\tWeakTopic\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x12\n\nlecture_id\x18\x02 \x01(\t\x12\x14\n\x0cmissed_count\x18\x03 \x01(\x05\x12\x17\n\x0ftotal_attempted\x18\x04 \x01(\x05\"F\n\x0bTopicReview\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x12\n\nlecture_id\x18\x02 \x01(\t\x12\x14\n\x0c\x66ocus_points\x18\x03 \x01(\t\"`\n\x17GenerateSummaryResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\x12\x1d\n\x07reviews\x18\x03 \x03(\x0b\x32\x0c.TopicReview\"^\n\x13IndexLectureRequest\x12\x12\n\nlecture_id\x18\x01 \x01(\t\x12\x11\n\tcourse_id\x18\x02 \x01(\t\x12\x0f\n\x07user_id\x18\x03 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x04 \x01(\t\"V\n\x14IndexLectureResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\x12\x16\n\x0e\x63hunks_indexed\x18\x03 \x01(\x05\"=\n\x0eLectureContent\x12\x12\n\nlecture_id\x18\x01 \x01(\t\x12\x17\n\x0fquestions_count\x18\x03 \x01(\x05\"A\n\x13\x44ifficultyBreakdown\x12\x0c\n\x04\x65\x61sy\x18\x01 \x01(\x05\x12\x0e\n\x06medium\x18\x02 \x01(\x05\x12\x0c\n\x04hard\x18\x03 \x01(\x05\"?\n\rTypeBreakdown\x12\x0b\n\x03mcq\x18\x01 \x01(\x05\x12\r\n\x05\x65ssay\x18\x02 \x01(\x05\x12\x12\n\ntrue_false\x18\x03 \x01(\x05\"\xb2\x01\n\x18GenerateQuestionsRequest\x12!\n\x08lectures\x18\x01 \x03(\x0b\x32\x0f.LectureContent\x12\x17\n\x0ftotal_questions\x18\x02 \x01(\x05\x12\x32\n\x14\x64ifficulty_breakdown\x18\x03 \x01(\x0b\x32\x14.DifficultyBreakdown\x12&\n\x0etype_breakdown\x18\x04 \x01(\x0b\x32\x0e.TypeBreakdown\"j\n\x19GenerateQuestionsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\x12%\n\tquestions\x18\x03 \x03(\x0b\x32\x12.GeneratedQuestion\"\xce\x01\n\x11GeneratedQuestion\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x12\n\ndifficulty\x18\x03 \x01(\t\x12\r\n\x05topic\x18\x04 \x01(\t\x12\x13\n\x0b\x65xplanation\x18\x05 \x01(\t\x12!\n\x07options\x18\x06 \x03(\x0b\x32\x10.GeneratedOption\x12\x14\n\x0cmodel_answer\x18\x07 \x01(\t\x12\x18\n\x10grading_criteria\x18\x08 \x03(\t\x12\x12\n\nlecture_id\x18\t \x01(\t\"3\n\x0fGeneratedOption\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x12\n\nis_correct\x18\x02 \x01(\x08\"\x9a\x01\n\x12GradeAnswerRequest\x12\x12\n\nlecture_id\x18\x01 \x01(\t\x12\x16\n\x0estudent_answer\x18\x02 \x01(\t\x12\x15\n\rquestion_text\x18\x03 \x01(\t\x12\x11\n\tmax_score\x18\x04 \x01(\x05\x12\x14\n\x0cmodel_answer\x18\x05 \x01(\t\x12\x18\n\x10grading_criteria\x18\x06 \x01(\t\"\x89\x01\n\x13GradeAnswerResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\rerror_message\x18\x02 \x01(\t\x12\r\n\x05score\x18\x03 \x01(\x01\x12\x10\n\x08\x66\x65\x65\x64\x62\x61\x63k\x18\x04 \x01(\t\x12\x15\n\rmissing_point\x18\x05 \x03(\t\x12\x12\n\nconfidence\x18\x06 \x01(\t2\xd2\x02\n\rExamAIService\x12;\n\x0cIndexLecture\x12\x14.IndexLectureRequest\x1a\x15.IndexLectureResponse\x12\x45\n\x0cGenerateExam\x12\x19.GenerateQuestionsRequest\x1a\x1a.GenerateQuestionsResponse\x12\x38\n\x0bGradeAnswer\x12\x13.GradeAnswerRequest\x1a\x14.GradeAnswerResponse\x12\x41\n\x0e\x45xplainConcept\x12\x16.ExplainConceptRequest\x1a\x17.ExplainConceptResponse\x12@\n\x0bpre_summary\x12\x17.GenerateSummaryRequest\x1a\x18.GenerateSummaryResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'protos.examgen_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_GENERATESUMMARYREQUEST']._serialized_start=24
-  _globals['_GENERATESUMMARYREQUEST']._serialized_end=100
-  _globals['_WEAKTOPIC']._serialized_start=102
-  _globals['_WEAKTOPIC']._serialized_end=195
-  _globals['_TOPICREVIEW']._serialized_start=197
-  _globals['_TOPICREVIEW']._serialized_end=267
-  _globals['_GENERATESUMMARYRESPONSE']._serialized_start=269
-  _globals['_GENERATESUMMARYRESPONSE']._serialized_end=365
-  _globals['_INDEXLECTUREREQUEST']._serialized_start=367
-  _globals['_INDEXLECTUREREQUEST']._serialized_end=461
-  _globals['_INDEXLECTURERESPONSE']._serialized_start=463
-  _globals['_INDEXLECTURERESPONSE']._serialized_end=549
-  _globals['_LECTURECONTENT']._serialized_start=551
-  _globals['_LECTURECONTENT']._serialized_end=612
-  _globals['_DIFFICULTYBREAKDOWN']._serialized_start=614
-  _globals['_DIFFICULTYBREAKDOWN']._serialized_end=679
-  _globals['_TYPEBREAKDOWN']._serialized_start=681
-  _globals['_TYPEBREAKDOWN']._serialized_end=744
-  _globals['_GENERATEQUESTIONSREQUEST']._serialized_start=747
-  _globals['_GENERATEQUESTIONSREQUEST']._serialized_end=925
-  _globals['_GENERATEQUESTIONSRESPONSE']._serialized_start=927
-  _globals['_GENERATEQUESTIONSRESPONSE']._serialized_end=1033
-  _globals['_GENERATEDQUESTION']._serialized_start=1036
-  _globals['_GENERATEDQUESTION']._serialized_end=1242
-  _globals['_GENERATEDOPTION']._serialized_start=1244
-  _globals['_GENERATEDOPTION']._serialized_end=1295
-  _globals['_GRADEANSWERREQUEST']._serialized_start=1298
-  _globals['_GRADEANSWERREQUEST']._serialized_end=1452
-  _globals['_GRADEANSWERRESPONSE']._serialized_start=1455
-  _globals['_GRADEANSWERRESPONSE']._serialized_end=1592
-  _globals['_EXAMAISERVICE']._serialized_start=1595
-  _globals['_EXAMAISERVICE']._serialized_end=1866
+  _globals['_EXPLAINCONCEPTREQUEST']._serialized_start=24
+  _globals['_EXPLAINCONCEPTREQUEST']._serialized_end=113
+  _globals['_EXPLAINCONCEPTRESPONSE']._serialized_start=115
+  _globals['_EXPLAINCONCEPTRESPONSE']._serialized_end=222
+  _globals['_GENERATESUMMARYREQUEST']._serialized_start=224
+  _globals['_GENERATESUMMARYREQUEST']._serialized_end=300
+  _globals['_WEAKTOPIC']._serialized_start=302
+  _globals['_WEAKTOPIC']._serialized_end=395
+  _globals['_TOPICREVIEW']._serialized_start=397
+  _globals['_TOPICREVIEW']._serialized_end=467
+  _globals['_GENERATESUMMARYRESPONSE']._serialized_start=469
+  _globals['_GENERATESUMMARYRESPONSE']._serialized_end=565
+  _globals['_INDEXLECTUREREQUEST']._serialized_start=567
+  _globals['_INDEXLECTUREREQUEST']._serialized_end=661
+  _globals['_INDEXLECTURERESPONSE']._serialized_start=663
+  _globals['_INDEXLECTURERESPONSE']._serialized_end=749
+  _globals['_LECTURECONTENT']._serialized_start=751
+  _globals['_LECTURECONTENT']._serialized_end=812
+  _globals['_DIFFICULTYBREAKDOWN']._serialized_start=814
+  _globals['_DIFFICULTYBREAKDOWN']._serialized_end=879
+  _globals['_TYPEBREAKDOWN']._serialized_start=881
+  _globals['_TYPEBREAKDOWN']._serialized_end=944
+  _globals['_GENERATEQUESTIONSREQUEST']._serialized_start=947
+  _globals['_GENERATEQUESTIONSREQUEST']._serialized_end=1125
+  _globals['_GENERATEQUESTIONSRESPONSE']._serialized_start=1127
+  _globals['_GENERATEQUESTIONSRESPONSE']._serialized_end=1233
+  _globals['_GENERATEDQUESTION']._serialized_start=1236
+  _globals['_GENERATEDQUESTION']._serialized_end=1442
+  _globals['_GENERATEDOPTION']._serialized_start=1444
+  _globals['_GENERATEDOPTION']._serialized_end=1495
+  _globals['_GRADEANSWERREQUEST']._serialized_start=1498
+  _globals['_GRADEANSWERREQUEST']._serialized_end=1652
+  _globals['_GRADEANSWERRESPONSE']._serialized_start=1655
+  _globals['_GRADEANSWERRESPONSE']._serialized_end=1792
+  _globals['_EXAMAISERVICE']._serialized_start=1795
+  _globals['_EXAMAISERVICE']._serialized_end=2133
 # @@protoc_insertion_point(module_scope)

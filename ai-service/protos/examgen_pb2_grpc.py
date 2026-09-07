@@ -49,6 +49,11 @@ class ExamAIServiceStub:
                 request_serializer=protos_dot_examgen__pb2.GradeAnswerRequest.SerializeToString,
                 response_deserializer=protos_dot_examgen__pb2.GradeAnswerResponse.FromString,
                 _registered_method=True)
+        self.ExplainConcept = channel.unary_unary(
+                '/ExamAIService/ExplainConcept',
+                request_serializer=protos_dot_examgen__pb2.ExplainConceptRequest.SerializeToString,
+                response_deserializer=protos_dot_examgen__pb2.ExplainConceptResponse.FromString,
+                _registered_method=True)
         self.pre_summary = channel.unary_unary(
                 '/ExamAIService/pre_summary',
                 request_serializer=protos_dot_examgen__pb2.GenerateSummaryRequest.SerializeToString,
@@ -77,10 +82,15 @@ class ExamAIServiceServicer:
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def pre_summary(self, request, context):
+    def ExplainConcept(self, request, context):
         """rpc GradeImageAnswer (GradeImageAnswerRequest) returns (GradeAnswerResponse);
-        rpc ExplainConcept (ExplainConceptRequest) returns (ExplainConceptResponse);
         """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def pre_summary(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -102,6 +112,11 @@ def add_ExamAIServiceServicer_to_server(servicer, server):
                     servicer.GradeAnswer,
                     request_deserializer=protos_dot_examgen__pb2.GradeAnswerRequest.FromString,
                     response_serializer=protos_dot_examgen__pb2.GradeAnswerResponse.SerializeToString,
+            ),
+            'ExplainConcept': grpc.unary_unary_rpc_method_handler(
+                    servicer.ExplainConcept,
+                    request_deserializer=protos_dot_examgen__pb2.ExplainConceptRequest.FromString,
+                    response_serializer=protos_dot_examgen__pb2.ExplainConceptResponse.SerializeToString,
             ),
             'pre_summary': grpc.unary_unary_rpc_method_handler(
                     servicer.pre_summary,
@@ -190,6 +205,33 @@ class ExamAIService:
             '/ExamAIService/GradeAnswer',
             protos_dot_examgen__pb2.GradeAnswerRequest.SerializeToString,
             protos_dot_examgen__pb2.GradeAnswerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ExplainConcept(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ExamAIService/ExplainConcept',
+            protos_dot_examgen__pb2.ExplainConceptRequest.SerializeToString,
+            protos_dot_examgen__pb2.ExplainConceptResponse.FromString,
             options,
             channel_credentials,
             insecure,

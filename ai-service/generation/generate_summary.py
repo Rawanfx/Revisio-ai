@@ -33,7 +33,9 @@ REFERENCE CONTENT (the only source of truth):
 {context}
 
 Write the review note in the same language as the reference content above."""
+
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
 def generate_exam_summary(topic :str,lecture_id:str,missed:int,total:int)->str:
     context=retrieve_context_for_question(lecture_id,topic,5)
     prompt = build_focus_point_prompt(topic,missed,total,context)
