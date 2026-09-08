@@ -1,1 +1,8 @@
 groq
+qdrant-client
+sentence-transformers
+transformers
+langchain-text-splitters
+grpcio
+protobuf
+python-dotenv

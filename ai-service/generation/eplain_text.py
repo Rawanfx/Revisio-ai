@@ -48,7 +48,7 @@ Write in the same language as the reference content."""
 
 
 def generate_explain_text(selected_text: str, question_text: str, lecture_id: str) -> dict:
-    context = retrieve_context_for_question(lecture_id=lecture_id, question_text=selected_text, top_k=5)
+    context = retrieve_context_for_question(lecture_id=lecture_id, question_text=selected_text, top_k=10)
     
     if not context:
         return {"expanded_explanation": "", "real_example": None}
